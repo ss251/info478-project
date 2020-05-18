@@ -9,6 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r, echo=FALSE, include=FALSE}
 source("map.R")
+source("dalys_water.R")
 ```
 
 ```{r map, echo=FALSE}
@@ -21,5 +22,13 @@ do.call( addMapLegend , c( mapParams
                            , legendLabels="all"
                            , legendWidth=0.5
                            , legendIntervals="data" , legendMar = 2 ) )
+```
+
+
+```{r plot, echo=FALSE}
+plot(dalys_limitedwater)
+
+plot(dalys_unimproved)
+
 ```
 
