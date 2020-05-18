@@ -10,8 +10,21 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r, echo=FALSE, include=FALSE, message=FALSE}
 source("map.R")
+source("causes.R")
 ```
 
+## Statistical Analysis
+The data that we’re most interested in is data about the percentage of a regions population that is using unimproved drinking water. 
+
+```{r map, echo=FALSE}
+summary(poor_water$unimproved_dwater)
+```
+
+Analyzing the data collected from UNICEF we can see that the mean proportion of people using unimproved drinking water sources is rather low, at 4.85%. Although this value is low it’s important to note that 25% of countries have between 5.85 % of their population and 38.72% of their population using unimproved water sources. This is likely because despite most of the world having very low usage of unimproved water sources, there still exist countries with very high usage of unimproved water sources. This becomes more obvious when we note that despite the median being 1.1% the mean percentage of people using unimproved water is 5.85%. 
+
+At further inspection we can see that the standard deviation of the proportion of populations using unimproved drinking water is 7.513%. This supports our analysis that there exist countries which use unimproved water at significantly higher rates than the other regions in the world. 
+
+## Geographic Distribution 
 ```{r map, echo=FALSE, message=FALSE}
 mapParams <- mapCountryData( water_data_map_joined
                             , nameColumnToPlot="Proportion Using Unimproved Sources of Drinking Water"
@@ -28,11 +41,10 @@ do.call( addMapLegend , c( mapParams
 
 The plot below is a histogram of the most frequent diseases found in the bottom 10% of countries with the lowest access to clean drinking water. Countries were ranked based on the proportion of their population that is reliant on an unimproved water source. For each of the countries within the bottom 10%, the top 10 causes which contributed the most to their DALYs were selected and aggregated to create a count of significant causes of health burden among countries with low access to clean drinking water. 
 ```{r, echo=FALSE, message=FALSE}
-source("causes.R")
 plot(common_causes)
 ```
 
-### Analysis
+### Interpretation
 From the histogram we learn that the most significant cause of health burden among regions without access to clean water are diseases relating to newborn children. Other frequent causes of health burden include STDs, malaria, and nutritional diseases. Identifying the frequent causes of health burden can help us understand how poor access to clean drinking water greatly affects the lives of children, and parents. This makes reproduction difficult for people in such countries, because they’re risk of health burden is much higher.  Countries with such problems may have trouble in the future, if they’re is difficult to keep young children healthy. It is important to assist such countries in acquiring better access to clean water so that their populations can more independently support themselves in the future. 
 
 #Relationships Between Variables 
