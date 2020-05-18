@@ -3,32 +3,43 @@ title: "Exploratory Analysis"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+# Distribution of Values
 
-```{r, echo=FALSE, include=FALSE}
+```{r, echo=FALSE, include=FALSE, message=FALSE}
 source("map.R")
-source("dalys_water.R")
 ```
 
-```{r map, echo=FALSE}
+```{r map, echo=FALSE, message=FALSE}
 mapParams <- mapCountryData( water_data_map_joined
-                             , nameColumnToPlot="Proportion Using Unimproved Sources of Drinking Water"
-                             , addLegend=FALSE
-                             , catMethod = catMethod
-                             , colourPalette = colourPalette )
+                            , nameColumnToPlot="Proportion Using Unimproved Sources of Drinking Water"
+                            , addLegend=FALSE
+                            , catMethod = catMethod
+                            , colourPalette = colourPalette )
 do.call( addMapLegend , c( mapParams
-                           , legendLabels="all"
-                           , legendWidth=0.5
-                           , legendIntervals="data" , legendMar = 2 ) )
+                          , legendLabels="all"
+                          , legendWidth=0.5
+                          , legendIntervals="data" , legendMar = 2 ) )
 ```
 
+## Common Causes of Health Burden 
 
-```{r plot, echo=FALSE}
+The plot below is a histogram of the most frequent diseases found in the bottom 10% of countries with the lowest access to clean drinking water. Countries were ranked based on the proportion of their population that is reliant on an unimproved water source. For each of the countries within the bottom 10%, the top 10 causes which contributed the most to their DALYs were selected and aggregated to create a count of significant causes of health burden among countries with low access to clean drinking water. 
+```{r, echo=FALSE, message=FALSE}
+source("causes.R")
+plot(common_causes)
+```
+
+### Analysis
+From the histogram we learn that the most significant cause of health burden among regions without access to clean water are diseases relating to newborn children. Other frequent causes of health burden include STDs, malaria, and nutritional diseases. Identifying the frequent causes of health burden can help us understand how poor access to clean drinking water greatly affects the lives of children, and parents. This makes reproduction difficult for people in such countries, because they’re risk of health burden is much higher.  Countries with such problems may have trouble in the future, if they’re is difficult to keep young children healthy. It is important to assist such countries in acquiring better access to clean water so that their populations can more independently support themselves in the future. 
+
+#Relationships Between Variables 
+```{r plot, echo=FALSE, message=FALSE}
+source("dalys_water.R")
 plot(dalys_limitedwater)
 
 plot(dalys_unimproved)
-
 ```
 
