@@ -43,3 +43,110 @@ plot(dalys_limitedwater)
 plot(dalys_unimproved)
 ```
 
+```{r, warning=FALSE, message=FALSE, include=FALSE}
+ihme <- read.csv('IHME.csv', header = T)
+water <- read.csv('water2.csv', header = T)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+```
+
+```{r data prep, include=FALSE}
+Diarrhea <- ihme %>% 
+  filter(cause == "Diarrheal diseases" & metric == "Rate")
+Intestinal <- ihme %>% 
+  filter(cause == "Intestinal nematode infections" & metric == "Rate")
+Maternal <- ihme %>% 
+  filter(cause == "Maternal sepsis and other maternal infections" & metric == "Rate")
+Deficiencies <- ihme %>% 
+  filter(cause == "Nutritional deficiencies" & metric == "Rate")
+
+names(water)[names(water) == "Geographic.Area"] <- "location"
+wd <- merge(Diarrhea, water, by = "location")
+wi <- merge(Intestinal, water, by = "location")
+wm <- merge(Maternal, water, by = "location")
+wdef <- merge(Deficiencies, water, by = "location")
+
+wd_dalys <- wd %>% 
+  filter(measure == "DALYs (Disability-Adjusted Life Years)")
+wi_dalys <- wi %>% 
+  filter(measure == "DALYs (Disability-Adjusted Life Years)")
+wm_dalys <- wm %>% 
+  filter(measure == "DALYs (Disability-Adjusted Life Years)")
+wdef_dalys <- wdef %>% 
+  filter(measure == "DALYs (Disability-Adjusted Life Years)")
+```
+
+## Plots of relationship between various causes & water access measured by DALYS
+
+The purpose of these plots is to explore if there is a correlation between
+limited drinking water access and diseases or infections that may be associated
+with that. If there is a relationship then we can look into causal effects and 
+this provides a good visual for how strong that relationship may be.
+In this dataset, **limited drinking water access is defined as water collection 
+from an improved source exceeded 30 minutes**. Some of the causes we looked at 
+were based on background information regarding water collection, such as
+women and girls bear the majority of the burden of water collection so we wanted
+to examine the relationship between maternal sepsis and other maternal 
+infections.
+
+```{r plot1, warning = FALSE, echo=FALSE, message=FALSE}
+ggplot(wd_dalys, aes(x= val, y=X2017_Proportion.of.population.using.limited.drinking.water.services)) + 
+  geom_point()+ labs(title = "Rate of Diarrheal diseases vs. 
+Proportion of pop using limited drinking water",
+x = "DALYs due to Diarrheal Diseases", y = " Proportion of Population using 
+limited drinking water")+
+  geom_smooth(method="loess", se=F)
+```
+
+This plot shows the relationship between diarrheal disease and proportion of the
+population using limited drinking water. There is a trend upward, as the proportion
+of the population with limited drinking water increases, DALYs due to diarrheal
+diseases also increases with a few outliers. This is expected becauase some 
+diarrheal diseases are caused by poor water quality.
+
+```{r plot2, warning = FALSE, echo=FALSE, message=FALSE}
+ggplot(wi_dalys, aes(x= val, y=X2017_Proportion.of.population.using.limited.drinking.water.services)) + 
+  geom_point()+ labs(title = "Rate of Intestinal nematode infections vs. 
+Proportion of pop using limited drinking water", x = "DALYs due to Intestinal nematode infections", y = " Proportion of Population using limited drinking water")+
+  geom_smooth(method="loess", se=F)
+```
+
+The plot above shows the relationship between intestinal nematode infections
+and access to drinking water. The graph shows an upward trend, similar to 
+diarrheal diseases. The greater percentage of the population with limited access
+to drinking water, the higher the DALYs due to nematode infections. 
+
+```{r plot3, warning = FALSE, echo=FALSE, message=FALSE}
+ggplot(wm_dalys, aes(x= val, y=X2017_Proportion.of.population.using.limited.drinking.water.services)) + 
+  geom_point()+
+  geom_smooth(method="loess", se=F)+
+  labs(title = "Rate of Maternal sepsis & other maternal infections vs. 
+Proportion of pop using limited drinking water", 
+x = "DALYs due Maternal sepsis and other maternal infections", y = " Proportion of Population using limited drinking water")
+```
+
+The plot above shows the relationship between maternal sepsis and other maternal
+infections and access to drinking water. As mentioned before, the burden of 
+getting water falls unevenly on women and girls, so we decided to explore this
+area. The trend line shows an increase and then it plateaus, which is indicative
+of an unclear relationship. The points are somewhat scattered compared to the 
+two previous causes and call for further investigation.
+
+```{r plot4, warning = FALSE, echo=FALSE, message=FALSE}
+ggplot(wdef_dalys, aes(x= val, y=X2017_Proportion.of.population.using.limited.drinking.water.services)) + 
+  geom_point()+ geom_smooth(method="loess", se=F)+
+  labs(title = "Rate of Nutritional deficiencies vs. Proportion of pop using limited 
+drinking water", x = "DALYs due Maternal sepsis and other maternal infections", 
+y = " Proportion of Population using limited drinking water")
+```
+
+The plot above shows the relationship between nutritional deficiencies and 
+access to drinking water. This graph follows a similar pattern to the maternal 
+sepsis and other maternal infections graph with an increase and then a dropoff,
+which is likely caused by overfitting to an outlier (Mali). In Mali, there is 
+one clear point which has a high rate of maternal sepsis and infection but 
+access to limited drinking water is not as high as the rest of the plot would
+predict. This goes to show that these plots represent correlation much more than
+they do causation, and any insights gathered require more analysis to be able
+to accurately make statements regarding them.
