@@ -51,12 +51,21 @@ plot(common_causes)
 From the histogram we learn that the most significant cause of health burden among regions without access to clean water are diseases relating to newborn children. Other frequent causes of health burden include STDs, malaria, and nutritional diseases. Identifying the frequent causes of health burden can help us understand how poor access to clean drinking water greatly affects the lives of children, and parents. This makes reproduction difficult for people in such countries, because they’re risk of health burden is much higher.  Countries with such problems may have trouble in the future, if they’re is difficult to keep young children healthy. It is important to assist such countries in acquiring better access to clean water so that their populations can more independently support themselves in the future. 
 
 #Relationships Between Variables 
+# Relationships of DALYs rate and water quality of top 8 DALYS rate countries
+
+The purpose of these plots is to examine how high DALYs rate countries access to limited water sources, and unimproved water sources in 2017. This can recognize which country has both limited and unimproved water sources or which country has limited or unimproved water sources. First, I find top 10 countries with high DALYs rate, and compare their proportion of population of access to limited water sources. It has two NA variables for water sources which I delete those columns for a better scatterplot. I also did the same interpretation for proportion of population of access to unimproved water sources. These two variables are important to which countries have poor access to drinking water such as unimproved and limited sources related to high DALYs rate.
 ```{r plot, echo=FALSE, message=FALSE}
 source("dalys_water.R")
 plot(dalys_limitedwater)
 
 plot(dalys_unimproved)
 ```
+
+Plot of DALYs rate versus limited drinking water sources have seems to have many African countries which we assume they have limited drinking water sources and high DALYs rate. The most impacted country by both DALYs rate and proportion of population access to limited water sources is Somalia which have quite high prop of limited drinking water and at top three of DALYs rate countries. 
+Next plot is DALYs rate versus unimproved drinking water source also shows many African countries which we assume they have unimproved drinking water sources and high DALYs rate. The most impacted country by both DALYs rate and proportion of population access to unimproved water sources is Mali which has quite high prop of unimproved drinking water source and highest DALYs rate of top 8 countries.
+In both plots, Somalia has both high impacted on limited drinking water sources, and unimproved water sources which it have high rate of DALYs as well. 
+
+
 
 ```{r, warning=FALSE, message=FALSE, include=FALSE}
 ihme <- read.csv('IHME.csv', header = T)
