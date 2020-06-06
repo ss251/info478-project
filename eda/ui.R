@@ -2,12 +2,38 @@
 
 library(shiny)
 library(ggplot2)
+library("gdata") 
+library(tidyverse)
+library(maps)
+library("rworldmap")
+library("classInt")
+
+Map_UI <- function() {
+  return (tabPanel("Deterministic Model",
+                   sidebarPanel(h3("Parameters of Clean Water", style = "padding-bottom: 0.5em"),
+                                selectInput("param", "Parameter:", 
+                                            choices=c('Unimproved Sources of Drinking Water',
+                                                      'Improved Sources of Drinking Water',
+                                                      'Using Handwashing Facility at Home',
+                                                      'Using Safely Managed Drinking Water Service',
+                                                      'Using Surface Water')),
+                                hr(),
+                                helpText(a("Data", href="https://data.unicef.org/topic/water-and-sanitation/drinking-water/", target="_blank"), "from UNICEF")
+                   )
+                   ,
+                   
+                   mainPanel(
+                     plotOutput("MainPlot1")
+                   )
+                   
+                   
+  ))
+}
 
 navbarPage("Menu",
   # Intro Tab 
   tabPanel(
     "Introduction",
-    
     fluidRow(
       column(
         10,
@@ -47,7 +73,30 @@ Analyzing the data collected from UNICEF we can see that the mean proportion of 
 At further inspection we can see that the standard deviation of the proportion of populations using unimproved drinking water is 7.513%. This supports our analysis that there exist countries which use unimproved water at significantly higher rates than the other regions in the world.", br(),
               style = "font-size:18px")
           ),
-        )))
+        ))),
+    fluidRow(
+      column(
+        10, 
+        mainPanel(h3("Parameters of Clean Water", style = "padding-bottom: 0.5em"),
+                  selectInput("param", "Parameter:", 
+                              choices=c('Unimproved Sources of Drinking Water',
+                                        'Improved Sources of Drinking Water',
+                                        'Using Handwashing Facility at Home',
+                                        'Using Safely Managed Drinking Water Service',
+                                        'Using Surface Water')),
+                  hr(),
+                  helpText(a("Data", href="https://data.unicef.org/topic/water-and-sanitation/drinking-water/", target="_blank"), "from UNICEF")
+        )
+      )
+    ),
+    fluidRow(
+      column(
+        10, 
+        mainPanel(
+          plotOutput("MainPlot1")
+        )
+      )
+    ),
     ),
   
 # Analysis Tab  
