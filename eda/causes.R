@@ -88,29 +88,23 @@ for (i in concerned_causes) {
 }
 fig <- fig %>% layout(xaxis = list(autorange = TRUE), yaxis = list(title = 'Count', autorange = TRUE), barmode = 'stack')
 
-# fig
-# for (i in c("Neonatal disorders", "Maternal and neonatal disorders", "Malaria")) {
-#   concerned_causes <- filter(gbd_dalys, location == i)$cause 
-#   
-#   country_gbd_dalys <- gbd %>% filter(location == i)
-#   
-#   total_dalys = sum(country_gbd_dalys$val) 
-#   
-#   country_gbd_dalys <- country_gbd_dalys %>% 
-#     mutate(percentage_contribution = val / total_dalys) %>%
-#     filter(cause %in% concerned_causes)
-#   temp = rbind(temp, country_gbd_dalys)
-# }
-# 
-# concerned_causes
 
-# Animals <- c("giraffes", "orangutans", "monkeys")
-# SF_Zoo <- c(20, 14, 23)
-# LA_Zoo <- c(12, 18, 29)
-# data <- data.frame(Animals, SF_Zoo, LA_Zoo)
-# 
-# fig <- plot_ly(data, x = ~Animals, y = ~SF_Zoo, type = 'bar', name = 'SF Zoo')
-# fig <- fig %>% add_trace(y = ~LA_Zoo, name = 'LA Zoo')
-# fig <- fig %>% layout(yaxis = list(title = 'Count'), barmode = 'stack')
-# 
-# fig
+
+
+
+
+# Calculate percent for every country
+countries <- unique(gbd$location)
+
+percent_contr <- data.frame()
+
+for (i in countries) {
+  # concerned_causes = c("Neonatal disorders", "Maternal and neonatal disorders", "Malaria")
+  country_gbd_dalys <- gbd %>% filter(location == i)
+  
+  total_dalys = sum(country_gbd_dalys$val) 
+  
+  country_gbd_dalys <- country_gbd_dalys %>% 
+    mutate(percentage_contribution = val / total_dalys) 
+  percent_contr = rbind(percent_contr, country_gbd_dalys)
+}
