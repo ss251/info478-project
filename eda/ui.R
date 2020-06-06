@@ -63,17 +63,32 @@ navbarPage("Menu",
         10,
         mainPanel(
           h2("Method"),
-          h4("For this project, we use "),
+          h4("For this project, we use the Clean Water Dataset and the Health Burden Dataset"),
           wellPanel(
             style = "background: white",
-            p("The data that we're most interested in is data about the percentage of a regions population that is using unimproved drinking water.
 
-Analyzing the data collected from UNICEF we can see that the mean proportion of people using unimproved drinking water sources is rather low, at 4.85%. Although this value is low it's important to note that 25% of countries have between 5.85 % of their population and 38.72% of their population using unimproved water sources. This is likely because despite most of the world having very low usage of unimproved water sources, there still exist countries with very high usage of unimproved water sources. This becomes more obvious when we note that despite the median being 1.1% the mean percentage of people using unimproved water is 5.85%.
-
-At further inspection we can see that the standard deviation of the proportion of populations using unimproved drinking water is 7.513%. This supports our analysis that there exist countries which use unimproved water at significantly higher rates than the other regions in the world.", br(),
-              style = "font-size:18px")
+          p("The", a("dataset", href="https://data.unicef.org/topic/water-and-sanitation/drinking-water/", target="_blank"),
+            "we will be using for measuring the quality of water
+                        for each country was collected by WHO and UNICEF as part of their
+                        Joint Monitoring Programme. This data set is global, and includes
+                        information collected from almost every country. Collection of 
+                        this dataset began in 1990. The Joint Monitoring Programme created
+                        this dataset by working with governments to set up systems which can
+                        gauge the water quality and sanitation levels of the country in
+                        standardized ways."),
+          p(
+            "The", a("dataset", href="http://ghdx.healthdata.org/gbd-2017", target="_blank"), 
+            "we will be using for measuring health burden was
+                        collected by the Institute for Health Metrics and Evaluation.
+                        This data set is global, and includes information collected from
+                        195 countries in 2017. The GBD is composed of estimates for different
+                        health burdens and outcomes for each country. These estimates are
+                        based on a dataset that was created by aggregating over 9000 other
+                        datasets regarding health, some of which were made publically available
+                        through their country of origin."
+          ),br(),style = "font-size:18px")
           ),
-        ))),
+        )),
     fluidRow(
       column(
         10, 
@@ -96,8 +111,8 @@ At further inspection we can see that the standard deviation of the proportion o
           plotOutput("MainPlot1")
         )
       )
-    ),
-    ),
+    )
+), 
   
 # Analysis Tab  
   tabPanel(
@@ -114,70 +129,6 @@ At further inspection we can see that the standard deviation of the proportion o
         tabPanel("Analysis3", plotOutput("")),
         tabPanel("Analysis4", plotOutput(""))
       ),
-      fluidRow(
-        column(
-          10,
-          mainPanel(
-            h2("Specific Quantitative Analysis"),
-            h4("Explain what questions we have"),
-            tabsetPanel(
-              tabPanel("Plot", plotOutput(""))
-              ),
-            wellPanel(
-              style = "background: white",
-              p("Explaination goes here if needed", br(),
-                style = "font-size:18px")
-              ),
-            ),
-          )),
-      
-      fluidRow(
-        column(
-          10,
-          mainPanel(
-            h2("Exploratory Analysis: Understanding DALYs rate and Water quality"),
-            h4("DALYs rate versus Water quality over countries"),
-            tabsetPanel(
-              tabPanel("Plot", plotOutput(""))
-            ),
-            wellPanel(
-              style = "background: white",
-              p("DALYs is disability adjusted life year which is the sum of years of potential life 
-              lost due to premature death and the years of productive life lost due to disability.
-              The importance of DALYs is that it measure the combined quantity and quality of life of a population.
-              The plots indicate top 8 DALYs rate countries of limited and unimproved water quality, and to compare
-              limited and unimproved water quality of top 8 countries. All of top 8 countries of DALYs rate are from
-                Africa where have lack of necessary monetary lead to utilize water sources.", br(),
-              p("Differences between limited and unimproved water quality is unimproved water sources are
-                mainly Unprotected spring, cart with small tank or drum, tanker truck-provided water, surface water. 
-                On the other hand, limited drinking water is that water sources is limited to proportion of people
-                demand for drinking water."), br(),
-              p("From the plots above, Somalia has the highest risk of both limited and unimproved water quality. 
-              The main reason that Somalia has the highest risk is that their groundwater is mainly from boreholes, 
-                shallow wells and springs, and current facing water scarcity as a result of successive droughts."), br(),
-                style = "font-size:18px")
-            ),
-          ),
-        )),
-      
-      fluidRow(
-        column(
-          10,
-          mainPanel(
-            h2("Exploratory Analysis"),
-            h4(""),
-            tabsetPanel(
-              tabPanel("Plot", plotOutput("")),
-              tabPanel("Plot2", plotOutput(""))
-            ),
-            wellPanel(
-              style = "background: white",
-              p("Explaination goes here if needed", br(),
-                style = "font-size:18px")
-            ),
-          ),
-        ))
-      
       )),
   
   tabPanel(
