@@ -46,12 +46,32 @@ navbarPage("Menu",
         10,
         mainPanel(
           h2("Method"),
-          h4("For this project, we use "),
+          h4("For this project, we use the Clean Water Dataset and the Health Burden Dataset"),
           wellPanel(
             style = "background: white",
-            p("Explaination goes here if needed", br(),
+            p("The", a("dataset", href="https://data.unicef.org/topic/water-and-sanitation/drinking-water/", target="_blank"),
+              "we will be using for measuring the quality of water
+              for each country was collected by WHO and UNICEF as part of their
+              Joint Monitoring Programme. This data set is global, and includes
+              information collected from almost every country. Collection of 
+              this dataset began in 1990. The Joint Monitoring Programme created
+              this dataset by working with governments to set up systems which can
+              gauge the water quality and sanitation levels of the country in
+              standardized ways."),
+            p(
+              "The", a("dataset", href="http://ghdx.healthdata.org/gbd-2017", target="_blank"), 
+              "we will be using for measuring health burden was
+              collected by the Institute for Health Metrics and Evaluation.
+              This data set is global, and includes information collected from
+              195 countries in 2017. The GBD is composed of estimates for different
+              health burdens and outcomes for each country. These estimates are
+              based on a dataset that was created by aggregating over 9000 other
+              datasets regarding health, some of which were made publically available
+              through their country of origin."
+            ),br(),
+              
               style = "font-size:18px")
-          ),
+          )
         )))
     ),
   
