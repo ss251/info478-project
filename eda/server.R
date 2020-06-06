@@ -4,9 +4,9 @@
 
 library(shiny)
 library(ggplot2)
-
-source("")
+source("causes.R")
 
 server <- function(input, output) {
-  
+  output$cause_hist <- renderPlot(common_causes)
+  output$cause_prop <- renderPlotly(fig)
 }
