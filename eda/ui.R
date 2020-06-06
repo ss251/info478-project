@@ -10,7 +10,29 @@ navbarPage("Menu",
     "Main",
     titlePanel(""),
     h3("", br(), br(), "")
-    ), 
+    ),
+  
+  Map_UI <- function() {
+    return (tabPanel("Deterministic Model",
+                     sidebarPanel(h3("Parameters of Clean Water", style = "padding-bottom: 0.5em"),
+                                  selectInput("param", "Parameter:", 
+                                              choices=c('Unimproved Sources of Drinking Water',
+                                                        'Improved Sources of Drinking Water',
+                                                        'Using Handwashing Facility at Home',
+                                                        'Using Safely Managed Drinking Water Service',
+                                                        'Using Surface Water')),
+                                  hr(),
+                                  helpText(a("Data", href="https://data.unicef.org/topic/water-and-sanitation/drinking-water/", target="_blank"), "from UNICEF")
+                     )
+                     ,
+                     
+                     mainPanel(
+                       plotOutput("MainPlot1")
+                     )
+                     
+                     
+    ))
+  }
 
   # Intro Tab 
   tabPanel(
