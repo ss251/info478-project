@@ -40,7 +40,7 @@ common_causes <- ggplot(cause_count, aes(x = reorder(cause, n), y = n)) +
   geom_bar(stat = "identity") + 
   coord_flip() + 
   labs(x = "Cause of Health Burden", y = "Number of Countries with cause") + 
-  ggtitle(label = "Causes & Unimproved Drinking Water")
+  ggtitle(label = "Causes & Unimproved Drinking Water in the Bottom 10% of Countries")
 
 # By country / grouped 
 countries <- unique(gbd_dalys$location)
@@ -48,7 +48,6 @@ countries <- unique(gbd_dalys$location)
 percent_contr <- data.frame()
 
 for (i in countries) {
-  # concerned_causes = c("Neonatal disorders", "Maternal and neonatal disorders", "Malaria")
   country_gbd_dalys <- gbd %>% filter(location == i)
   
   total_dalys = sum(country_gbd_dalys$val) 
@@ -62,12 +61,6 @@ concerned_causes <- cause_count$cause
 water_damage <- filter(percent_contr, cause %in% concerned_causes) %>%
   select(location, cause, percentage_contribution)
 
-# Plot which shows Daly percentage contribution by natal related diseases
-# natal_causes <- ggplot(water_damage, aes(fill = cause, x = location, y = percentage_contribution)) + 
-#   geom_bar(position = "stack", stat="identity") +
-#   coord_flip() +
-#   theme(legend.position="none")
-
 temp_set <- water_damage %>% filter(cause == "Malaria", location %in% countries)
 temp_set2 <- water_damage %>% filter(cause == "Neonatal disorders", location %in% countries)
 
@@ -79,18 +72,27 @@ water_damage_pivot <- pivot_wider(water_damage, names_from = cause, values_from 
 names(water_damage_pivot)<-str_replace_all(names(water_damage_pivot), c(" " = "." , "," = "" ))
 concerned_causes <- str_replace_all(concerned_causes, c(" " = "." , "," = "" ))
 
-concerned_cause = c("Communicable.maternal.neonatal.and.nutritional.diseases")
+concerned_causes = c("Diabetes.and.kidney.diseases", 
+                     "Diabetes.mellitus", 
+                     "Diabetes.mellitus.type.2", 
+                     "Cardiovascular.diseases", 
+                     "Diarrheal.diseases", 
+                     "Malaria", 
+                     "Enteric.infections", 
+                     "Lower.respiratory.infections", 
+                     "Respiratory.infections.and.tuberculosis", 
+                     "Communicable.maternal.neonatal.and.nutritional.diseases", 
+                     "Neonatal.disorders", 
+                     "Maternal.and.neonatal.disorders", 
+                     "Non-communicable.diseases"
+                     )
 
 fig <- plot_ly(water_damage_pivot, x = ~location, y = water_damage_pivot$Malaria, type = 'bar', name = 'Malaria') 
 for (i in concerned_causes) {
   temp =  water_damage_pivot[[i]]
   fig <- fig %>% add_trace(y = temp, name = i) 
 }
-fig <- fig %>% layout(xaxis = list(autorange = TRUE), yaxis = list(title = 'Count', autorange = TRUE), barmode = 'stack')
-
-
-
-
+fig <- fig %>% layout(title = "Common Water Related Health Burdens & DALY Proportions", xaxis = list(title = 'Country', autorange = TRUE), yaxis = list(title = 'Total DALY Proportion', autorange = TRUE), barmode = 'stack')
 
 
 # Calculate percent for every country
