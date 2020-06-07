@@ -109,12 +109,12 @@ server <- function(input, output) {
   
   output$dalys <- renderPlot({
     
-    if(input$limited == 1){
+    if(input$dalys_plot == 1){
       title <- paste0("Limited water sources vs. DALYs Percent")
       plot <- plot(limited_dalys)
     }
     
-    if(input$unimproved == 2){
+    if(input$dalys_plot == 2){
       title <- paste0("Unimproved water sources vs. DALYs Percent")
       plot <- plot(unimproved_dalys)
     }

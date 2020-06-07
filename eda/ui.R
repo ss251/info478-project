@@ -130,7 +130,7 @@ navbarPage("Menu",
             and DALYs percentage."),
           br(),
           radioButtons(
-            inputId = "enact_dcm",
+            inputId = "dalys_plot",
             label = "Pick a worse water sources to compare with DALYs percentage.",
             choices = list(
               "Limited water sources" = 1,
