@@ -21,9 +21,9 @@ burden_data <- left_join(dalys_new, water_quality, by = "location") %>%
 
 
 burden_limited <- burden_data %>% 
-  arrange(-X2017_Proportion.of.population.using.limited.drinking.water.services)
+  arrange(-limited_water)
 
-limited_dalys = ggplot(burden_limited, aes(x = val, y = X2017_Proportion.of.population.using.limited.drinking.water.services))+
+limited_dalys = ggplot(burden_limited, aes(x = val, y = limited_water))+
   geom_point() +
   geom_smooth() +
   labs(x = "DALYs Percent",
@@ -31,9 +31,9 @@ limited_dalys = ggplot(burden_limited, aes(x = val, y = X2017_Proportion.of.popu
        title = "DALYs Percent vs prop of limited drinking water")
 
 burden_unimproved <- burden_data %>% 
-  arrange(-X2017_Proportion.of.population.using.unimproved.drinking.water.sources)
+  arrange(-unimproved_water)
 
-unimproved_dalys = ggplot(burden_unimproved, aes(x = val, y = X2017_Proportion.of.population.using.unimproved.drinking.water.sources))+
+unimproved_dalys = ggplot(burden_unimproved, aes(x = val, y = unimproved_water))+
   geom_point() +
   geom_smooth() +
   labs(x = "DALYs Percent",
