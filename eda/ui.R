@@ -125,7 +125,18 @@ navbarPage("Menu",
                  p("From the histogram we learn that the most significant cause of health burden among regions without access to clean water are diseases relating to newborn children. Other frequent causes of health burden include STDs, malaria, and nutritional diseases. Identifying the frequent causes of health burden can help us understand how poor access to clean drinking water greatly affects the lives of children, and parents. This makes reproduction difficult for people in such countries, because they're risk of health burden is much higher.  Countries with such problems may have trouble in the future, if they're is difficult to keep young children healthy. It is important to assist such countries in acquiring better access to clean water so that their populations can more independently support themselves in the future."), 
                  plotlyOutput("cause_prop")),
         
-        tabPanel("Analysis2", plotOutput("")),
+        tabPanel("Analysis2", 
+          p("Select plot for relationship between proportion of using limited or unimproved drinking water sources 
+            and DALYs percentage."),
+          br(),
+          radioButtons(
+            inputId = "enact_dcm",
+            label = "Pick a worse water sources to compare with DALYs percentage.",
+            choices = list(
+              "Limited water sources" = 1,
+              "Unimproved water sources" = 2),
+            selected = 1
+        )),
 
         tabPanel("Analysis3", 
                  titlePanel("Relationship between most frequently occuring causes & water access measured by DALYS"),

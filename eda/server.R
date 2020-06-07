@@ -12,6 +12,7 @@ library("classInt")
 
 source("ui.R")
 source("causes.R")
+source("dalys.R")
 
 ihme <- read.csv('IHME.csv', header = T)
 water <- read.csv('water2.csv', header = T)
@@ -105,4 +106,20 @@ server <- function(input, output) {
         limited drinking water")+
       geom_smooth(method="loess", se=F)
   })
+  
+  output$dalys <- renderPlot({
+    
+    if(input$limited == 1){
+      title <- paste0("Limited water sources vs. DALYs Percent")
+      plot <- plot(limited_dalys)
+    }
+    
+    if(input$unimproved == 2){
+      title <- paste0("Unimproved water sources vs. DALYs Percent")
+      plot <- plot(unimproved_dalys)
+    }
+    plot
+  })
+  
+  
   }
