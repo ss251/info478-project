@@ -126,9 +126,23 @@ navbarPage("Menu",
                  p("From the histogram we learn that the most significant cause of health burden among regions without access to clean water are diseases relating to newborn children. Other frequent causes of health burden include STDs, malaria, and nutritional diseases. Identifying the frequent causes of health burden can help us understand how poor access to clean drinking water greatly affects the lives of children, and parents. This makes reproduction difficult for people in such countries, because they're risk of health burden is much higher.  Countries with such problems may have trouble in the future, if they're is difficult to keep young children healthy. It is important to assist such countries in acquiring better access to clean water so that their populations can more independently support themselves in the future."), 
                  plotlyOutput("cause_prop")),
         tabPanel("Analysis2", plotOutput("")),
-        tabPanel("Analysis3", plotOutput("")),
-        tabPanel("Analysis4", plotOutput(""))
-      ),
+        tabPanel("Analysis3", plotOutput("diseasePlot"), titlePanel("Relationship between most frequently occuring causes & water access measured by DALYS"),
+                 sidebarLayout(
+                   sidebarPanel(
+                     selectInput("cause",
+                                 "select a cause",
+                                 c("Communicable, maternal, neonatal, and nutritional diseases",
+                                   "Oral disorders", "Neonatal disorders", "Maternal and neonatal disorders",
+                                   "Respiratory infections and tuberculosis", "Lower respiratory infections",
+                                   "Enteric infections", "Neglected tropical diseases and malaria", "Injuries",
+                                   "Malaria", "Diarrheal diseases", "Other non-communicable diseases", 
+                                   "HIV/AIDS and sexually transmitted infections", "HIV/AIDS"))
+                   ),
+                   mainPanel(
+                     plotOutput("diseasePlot")
+                   )
+                 ))
+      )
       )),
   
   tabPanel(
