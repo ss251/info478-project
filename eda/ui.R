@@ -115,7 +115,7 @@ navbarPage("Menu",
         ),
         
         
-        tabPanel("DALY Relationship", 
+        tabPanel("DALYs vs Water quality", 
                  p("Select plot for relationship between proportion of using limited or unimproved drinking water sources 
             and DALYs percentage."),
                  br(),
@@ -127,6 +127,17 @@ navbarPage("Menu",
                      "Unimproved water sources" = 2),
                    selected = 1
                  ), 
+                 p("These plots shows the relationship between proportion of water quality sources and DALYs percent.
+                 Differences between limited and unimproved water source is that limited drinking water sources 
+                 occur countries of water scarcity while demand for water is essential. On the other hand, unimproved drinking
+                 water sources occur from lack of water supply such as unprotected dug well and srping, tanker truck, and unfiltered groundwater.
+                From these relationships, we can determine how worse water quality can affect to individual's DALYs percentage.
+                However, actual relationships do not have strong relationship between water quality and DALYs percentage.
+                   First, limited water sources seem not to have strong relationship with DALYs percent which is 
+                   quite different from what we expected. Unimproved water sources also seems not to have strong
+                   relationship with DALYs percent. These lack of relationships might occur from including all disease causes that are not
+                   affected by drinking water sources increasing DALYs percentage."),
+                 br(),
                  plotOutput("dalys")
         ),
         
