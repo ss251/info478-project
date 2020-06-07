@@ -13,6 +13,10 @@ library("classInt")
 source("ui.R")
 source("causes.R")
 
+ihme <- read.csv('IHME.csv', header = T)
+water <- read.csv('water2.csv', header = T)
+names(water)[names(water) == "Geographic.Area"] <- "location"
+
 map_server <- function(input, output) {
   rundefault <- function(param) {
     water_data <- read.csv("water2.csv", stringsAsFactors = FALSE)
@@ -87,15 +91,18 @@ server <- function(input, output) {
   output$cause_prop <- renderPlotly(fig)
   map_server(input, output)
   output$diseasePlot <- renderPlot({
+    # generate bins based on input$bins from ui.R
     z <- ihme %>% 
       filter(cause == input$cause & metric == "Rate")
     wd <- merge(z, water, by = "location")
     wd_dalys <- wd %>% 
       filter(measure == "DALYs (Disability-Adjusted Life Years)")
+    # draw the histogram with the specified number of bins
     ggplot(wd_dalys, aes(x= val, y=X2017_Proportion.of.population.using.limited.drinking.water.services)) + 
       geom_point()+ labs(title = "Rate of Selected Cause vs. 
-                       Proportion of Population using limited drinking water",
+          Proportion of Population using limited drinking water",
                          x = "DALYs due to Cause", y = " Proportion of Population using 
-                       limited drinking water")+
-      geom_smooth(method="loess", se=F)})
+        limited drinking water")+
+      geom_smooth(method="loess", se=F)
+  })
   }
