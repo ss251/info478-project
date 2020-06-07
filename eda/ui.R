@@ -2,6 +2,7 @@
 
 library(shiny)
 library(ggplot2)
+library(plotly)
 library("gdata") 
 library(tidyverse)
 library(maps)
@@ -87,30 +88,7 @@ navbarPage("Menu",
                         through their country of origin."
           ),br(),style = "font-size:18px")
           ),
-        )),
-    fluidRow(
-      column(
-        10, 
-        mainPanel(h3("Parameters of Clean Water", style = "padding-bottom: 0.5em"),
-                  selectInput("param", "Parameter:", 
-                              choices=c('Unimproved Sources of Drinking Water',
-                                        'Improved Sources of Drinking Water',
-                                        'Using Handwashing Facility at Home',
-                                        'Using Safely Managed Drinking Water Service',
-                                        'Using Surface Water')),
-                  hr(),
-                  helpText(a("Data", href="https://data.unicef.org/topic/water-and-sanitation/drinking-water/", target="_blank"), "from UNICEF")
-        )
-      )
-    ),
-    fluidRow(
-      column(
-        10, 
-        mainPanel(
-          plotOutput("MainPlot1")
-        )
-      )
-    )
+        ))
 ), 
   
 # Analysis Tab  
@@ -119,26 +97,47 @@ navbarPage("Menu",
     
     mainPanel(
       tabsetPanel(
-        tabPanel("Analysis1",
+        tabPanel("Location Analysis", 
+                 mainPanel(h3("Parameters of Clean Water", style = "padding-bottom: 0.5em"),
+                           selectInput("param", "Parameter:", 
+                                       choices=c('Unimproved Sources of Drinking Water',
+                                                 'Improved Sources of Drinking Water',
+                                                 'Using Handwashing Facility at Home',
+                                                 'Using Safely Managed Drinking Water Service',
+                                                 'Using Surface Water')),
+                           hr(),
+                           helpText(a("Data", href="https://data.unicef.org/topic/water-and-sanitation/drinking-water/", target="_blank"), "from UNICEF")
+                 ), 
+                 mainPanel(
+                   plotOutput("MainPlot1")
+                 )
+          
+        ),
+        
+        
+        tabPanel("DALY Relationship", 
+                 p("Select plot for relationship between proportion of using limited or unimproved drinking water sources 
+            and DALYs percentage."),
+                 br(),
+                 radioButtons(
+                   inputId = "dalys_plot",
+                   label = "Pick a worse water sources to compare with DALYs percentage.",
+                   choices = list(
+                     "Limited water sources" = 1,
+                     "Unimproved water sources" = 2),
+                   selected = 1
+                 ), 
+                 plotOutput("dalys")
+        ),
+        
+        tabPanel("Disease Distribution Analysis",
                  p("The plot below is a histogram of the most frequent diseases found in the bottom 10% of countries with the lowest access to clean drinking water. Countries were ranked based on the proportion of their population that is reliant on an unimproved water source. For each of the countries within the bottom 10%, the top 10 causes which contributed the most to their DALYs were selected and aggregated to create a count of significant causes of health burden among countries with low access to clean drinking water."),
                  plotOutput("cause_hist"),
                  p("From the histogram we learn that the most significant cause of health burden among regions without access to clean water are diseases relating to newborn children. Other frequent causes of health burden include STDs, malaria, and nutritional diseases. Identifying the frequent causes of health burden can help us understand how poor access to clean drinking water greatly affects the lives of children, and parents. This makes reproduction difficult for people in such countries, because they're risk of health burden is much higher.  Countries with such problems may have trouble in the future, if they're is difficult to keep young children healthy. It is important to assist such countries in acquiring better access to clean water so that their populations can more independently support themselves in the future."), 
                  plotlyOutput("cause_prop")),
-        
-        tabPanel("Analysis2", 
-          p("Select plot for relationship between proportion of using limited or unimproved drinking water sources 
-            and DALYs percentage."),
-          br(),
-          radioButtons(
-            inputId = "dalys_plot",
-            label = "Pick a worse water sources to compare with DALYs percentage.",
-            choices = list(
-              "Limited water sources" = 1,
-              "Unimproved water sources" = 2),
-            selected = 1
-        )),
+      
 
-        tabPanel("Analysis3", 
+        tabPanel("Disease Relationship Analysis", 
                  titlePanel("Relationship between most frequently occuring causes & water access measured by DALYS"),
                  sidebarLayout(
                    sidebarPanel(

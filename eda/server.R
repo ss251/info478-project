@@ -9,6 +9,7 @@ library(tidyverse)
 library(maps)
 library("rworldmap")
 library("classInt")
+library("plotly")
 
 source("ui.R")
 source("causes.R")
