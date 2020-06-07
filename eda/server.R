@@ -1,7 +1,7 @@
 # server
 #server
 
-
+library(plotly)
 library(shiny)
 library(ggplot2)
 library("gdata") 
@@ -86,4 +86,16 @@ server <- function(input, output) {
   output$cause_hist <- renderPlot(common_causes)
   output$cause_prop <- renderPlotly(fig)
   map_server(input, output)
-}
+  output$diseasePlot <- renderPlot({
+    z <- ihme %>% 
+      filter(cause == input$cause & metric == "Rate")
+    wd <- merge(z, water, by = "location")
+    wd_dalys <- wd %>% 
+      filter(measure == "DALYs (Disability-Adjusted Life Years)")
+    ggplot(wd_dalys, aes(x= val, y=X2017_Proportion.of.population.using.limited.drinking.water.services)) + 
+      geom_point()+ labs(title = "Rate of Selected Cause vs. 
+                       Proportion of Population using limited drinking water",
+                         x = "DALYs due to Cause", y = " Proportion of Population using 
+                       limited drinking water")+
+      geom_smooth(method="loess", se=F)})
+  }
