@@ -25,8 +25,6 @@ Map_UI <- function() {
                    mainPanel(
                      plotOutput("MainPlot1")
                    )
-                   
-                   
   ))
 }
 

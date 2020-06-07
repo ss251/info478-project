@@ -99,7 +99,6 @@ countries <- unique(gbd$location)
 percent_contr <- data.frame()
 
 for (i in countries) {
-  # concerned_causes = c("Neonatal disorders", "Maternal and neonatal disorders", "Malaria")
   country_gbd_dalys <- gbd %>% filter(location == i)
   
   total_dalys = sum(country_gbd_dalys$val) 
