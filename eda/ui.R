@@ -97,7 +97,10 @@ navbarPage("Menu",
     
     mainPanel(
       tabsetPanel(
-        tabPanel("Location Analysis", 
+        tabPanel("Location Analysis",
+                 mainPanel(
+                   plotOutput("MainPlot1")
+                 ),
                  mainPanel(h3("Parameters of Clean Water", style = "padding-bottom: 0.5em"),
                            selectInput("param", "Parameter:", 
                                        choices=c('Unimproved Sources of Drinking Water',
@@ -106,10 +109,25 @@ navbarPage("Menu",
                                                  'Using Safely Managed Drinking Water Service',
                                                  'Using Surface Water')),
                            hr(),
-                           helpText(a("Data", href="https://data.unicef.org/topic/water-and-sanitation/drinking-water/", target="_blank"), "from UNICEF")
-                 ), 
-                 mainPanel(
-                   plotOutput("MainPlot1")
+                           helpText(a("Data", href="https://data.unicef.org/topic/water-and-sanitation/drinking-water/", target="_blank"), "from UNICEF"),
+                           br(),
+                           p(
+                             "The map visualization lets users select various parameters of clean water indicators all accross the world.
+                             This serves as an introduction to all the analysis conducted in the future parts of this document. Users can
+                             explore parts of the world that have varying measurements of availability/usage/management of water, potable or otherwise.
+                             The map visualization paves the way for analysis on how parameters of availaility and quality
+                             of water might co-incide with indicators of disease burden accross the regions.It should be noted that 
+                             some regions might be blank as a result of insufficient/non-existent data."
+                           ),
+                           br(),
+                           p("Unimproved drinking water sources include unprotected dug wells, unprotected springs, cart with small tank/drum,
+                             bottled water, tanker truck, and surface water (river, dam, lake, pond, stream, canal, irrigation channels).
+                             The data gives us significant insights on which parts of the world might be potentially affected in terms of health.
+                             We notice that the African continent has significantly higher proportions of populations using unimproved sources of
+                             drinking water. Causes of health burden across the world measured against the data on proportions of population using
+                             unimproved water sources can bring to light the countries that are most affected by this particular indicator and would
+                             thus help in better development of strategies for devicing solutions (starting from improving water sources).")
+                           
                  )
           
         ),
