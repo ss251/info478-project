@@ -158,7 +158,8 @@ navbarPage("Menu",
       
 
         tabPanel("Disease Relationship Analysis", 
-                 titlePanel("Relationship between most frequently occuring causes & water access measured by DALYS"),
+                 h1("Question: Which diseases are related to poor access to water, and how significant is their impact on DALYs?"),
+                 titlePanel("Relationship Between the Most Frequently Occuring Causes & Water Access Measured by DALYS"),
                  sidebarLayout(
                    sidebarPanel(
                      selectInput("cause",
@@ -173,14 +174,38 @@ navbarPage("Menu",
                    mainPanel(
                      plotOutput("diseasePlot")
                    )
-                 ))
+                 ),p("These graphs allow the user to select a cause as an input and the graph will reflect that cause's relationship with DALYs.
+                     The choices for inputs were determined by the top causes as measured by the number of countries with data on those causes."),
+                    p("Some of the causes that follow a near linear trend are neonatal disorders, maternal disorders and diarrheal diseases. Additionally,
+                     respiratory infections and tuberculosis show a strong linear trend which may be surprising as those are not normally
+                     thought of as affected by water. This graph shows correlation not causation, however, which could account for that trend.
+                     Malaria was another cause that might be expected to follow a strong linear trend but there was a shortage of data points, as it has been 
+                     eradicated or near eradicated in many countries."), 
+                    p("These graphs provide the starting point for further investigation into the health
+                     burden that lack of access to drinking water creates. To establish causation, pre-existing studies can be looked into as many of these
+                     causes have had extensive research done concerning them. In combination with the map visual, these can provide a good resource for starting to 
+                     look at where to fund certain disease prevention measures, such as providing mothers of young children access to clean water as a priority.")
+                 )
       )
       )),
   
   tabPanel(
     "Conclusion",
     
-    fluidRow(
+    fluidRow(h1("Conclusion"), wellPanel(
+              p("Our goal with this data analysis was to determine the effects of water
+               quality on health outcomes. Finding meaningful relationships between
+               water quality and health outcomes would allow us to inform research and funding. 
+               This yielded insights that could
+               prove valuable when considering how important funding and improving water quality
+               is in a region. Some of the relationships were somewhat expected, for example
+               diarrheal diseases and malaria which spread through or require unclean water sources
+               while some were less obvious."),
+             p("For instance, water quality had a large impact on disease
+               related to newborn children. Additionally, DALYs overall did not directly increase
+               in the linear fashion we expected with limited access to water. Broken down by disease
+               the relationships become more apparent but the noise when looking at all the causes at one
+               time the data became too noisy to draw insights from."))
       
     )
     
