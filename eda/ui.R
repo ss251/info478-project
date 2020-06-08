@@ -201,11 +201,15 @@ navbarPage("Menu",
                is in a region. Some of the relationships were somewhat expected, for example
                diarrheal diseases and malaria which spread through or require unclean water sources
                while some were less obvious."),
-             p("For instance, water quality had a large impact on disease
-               related to newborn children. Additionally, DALYs overall did not directly increase
+             p("For instance, the greatest health burden that water quality had a large impact on related to
+                newborn children. Another interesting finding was that Arsenic, which is present in some polluted water sources
+                can lead to diabetes and we see this increase in our visuals. Additionally, DALYs overall did not directly increase
                in the linear fashion we expected with limited access to water. Broken down by disease
                the relationships become more apparent but the noise when looking at all the causes at one
-               time the data became too noisy to draw insights from."))
+               time the data became too noisy to draw insights from. Countries with the worst access to water
+               (bottom 10%) saw 30% of their DALY's were related to poor water quality. This suggests that there is an urgent
+               need to improve water quality and access to good water quality in certain regions. This project 
+               exists to communicate that finding."))
       
     )
     
