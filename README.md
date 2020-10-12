@@ -1,8 +1,9 @@
-# INFO 478 Project Proposal
+# INFO 478 Project
 
 
 # Project Description
 
+## [Click here to access](https://taingmat.shinyapps.io/info478-finalproject/)
 
 ## Purpose
 
